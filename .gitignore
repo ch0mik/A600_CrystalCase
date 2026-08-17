@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local Codex/agent state
+.agents/
+.codex/
+
+# Derived release archives and temporary CAM files
+*.zip
+*.bak
+*.tmp
+*.tap
+*.nc
+*.gcode
+
+# Optional local source checkout used by the deterministic visualizer
+source/
+.edge-render-profile*/
