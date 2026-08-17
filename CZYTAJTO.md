@@ -8,6 +8,12 @@ chłodzeniem, dolnego rozszerzenia 1 MB Chip RAM oraz FrameThrower 600. Wyjście
 obrazu stanowi pełnowymiarowe HDMI na taśmie i uchwycie montowanym w miejscu
 modulatora RF.
 
+> **Zastrzeżenie:** To eksperymentalny, niezweryfikowany projekt mechaniczny.
+> Nie odpowiadam za uszkodzenie sprzętu, utratę danych, obrażenia ani inne
+> szkody powstałe podczas wykonania, montażu lub użytkowania. Wykonujesz i
+> używasz go wyłącznie na własne ryzyko. Przed włączeniem zasilania samodzielnie
+> sprawdź wszystkie wymiary, luzy, połączenia oraz polaryzację zasilania.
+
 > **Status: prototyp mechaniczny.** Geometria płyty i złączy pochodzi z KiCad,
 > ale uchwyt HDMI, Gotek Ami64 i konkretne chłodzenie CM4 nie mają publicznych
 > rysunków wykonawczych. Przed cięciem docelowej plexi wykonaj próbny panel I/O
@@ -56,9 +62,10 @@ Polecenie odtwarza oba widoki obudowy finger-joint.
 
 ![Wygenerowany przez AI fotorealistyczny podgląd obudowy](renders/assembly_realistic.png)
 
-Obraz wygenerowany przez AI jest wyłącznie ilustracją; przy wymiarowaniu i
-produkcji należy korzystać z niegenerowanych przez AI widoków SVG oraz plików
-DXF.
+Obraz wygenerowany przez AI jest wyłącznie ilustracją. Pokazuje zamówioną nagą
+płytkę Goteka na nośniku, USB i przyciski na prawym boku oraz OLED 0,96 cala z
+enkoderem na froncie. Przy wymiarowaniu i produkcji należy korzystać z
+niegenerowanych przez AI widoków SVG oraz plików DXF.
 
 Skrypt pokazuje wyłącznie geometrię potwierdzoną w DXF/KiCad. Obrys PCB
 `Edge.Cuts`, średnice otworów montażowych i płaskie granice footprintów są
@@ -91,7 +98,7 @@ W katalogu `dxf_screws/` znajduje się wariant skręcany:
 - `06_front_3mm.dxf` — front z wentylacją i dwiema diodami 3 mm;
 - `06b_front_gotek_oled_rotary_3mm.dxf` — front z OLED-em 0,96 cala i
   enkoderem;
-- `07_gotek_carrier_3mm.dxf` — uniwersalny regulowany nośnik PCB Goteka.
+- `07_gotek_carrier_3mm.dxf` — regulowany nośnik nagiej płytki PCB Goteka.
 
 DXF jest w formacie ASCII AutoCAD R12, jednostki: **mm**, skala **1:1**. Każdy
 plik produkcyjny zawiera wyłącznie zamknięte kontury na warstwie `CUT`. Nie ma
@@ -150,13 +157,18 @@ Jest przykręcony na dłuższych nylonowych dystansach współosiowych z punktam
 montażowymi motherboardu H1 i MT6; pokrywa i dno nie dostają osobnych otworów.
 OLED 0,96 cala oraz enkoder są zamontowane w prawej części panelu przedniego.
 
-Okno OLED ma 28 × 15 mm, a otwór tulei enkodera 7,5 mm. Panel `04c` ma w tylnej
-części prawego boku otwór USB-A 16,5 × 8,5 mm i dwa otwory 6,5 mm na przyciski,
-z dala od gniazd DE-9.
-Nośnik 120 × 95 mm ma podłużne otwory pozwalające dopasować różne rewizje PCB.
-Ponieważ dołączony uchwyt Ami64 jest drukowany 3D, a producent nie publikuje
-jego rysunku wykonawczego, przed CNC należy porównać otwory z posiadanym
-egzemplarzem i potwierdzić wysokość dystansów nad elementami płyty.
+Okno OLED ma 28 × 15 mm, a otwór tulei enkodera 7,5 mm. Panel `04c` ma na
+prawym boku, między tyłem a gniazdami DE-9, otwór USB-A 16,5 × 8,5 mm i dwa
+otwory 6,5 mm na przyciski. Nośnik 120 × 95 mm jest osobnym elementem wycinanym
+laserowo dla **nagiej płytki Goteka, bez fabrycznej obudowy**, pokazanej na
+[podanym zdjęciu produktu](https://www.simulant.uk/shop/image/cache/catalog/Product%20Images/RETRO/amiga/amiga1200-gotek-full-kit-750x750.jpg).
+Płytkę należy zamontować elementami do góry na czterech nylonowych dystansach
+M3, kierując USB i oba przyciski ku prawej ścianie. Cztery podłużne otwory
+pozwalają korygować rozstaw w osi X, a dwa otwory nośnika pokrywają się z osiami
+H1 i MT6 płyty głównej. Zdjęcie produktu nie ma skali, a producent nie publikuje
+rysunku wykonawczego, dlatego przed CNC trzeba zmierzyć rzeczywisty rozstaw
+otworów PCB, środki złączy, całkowitą wysokość oraz prześwit nad płytą. W razie
+potrzeby należy zmienić parametry `GOTEK_*` w `generate_dxf.py`.
 
 Panele pionowe wariantu skręcanego najlepiej łączyć z płytami kątownikami
 15 × 15 mm albo kostkami drukowanymi 3D. Otwory narożne Ø3,4 mm są wyłącznie

@@ -28,6 +28,12 @@ GOTEK_CARRIER_X = 203.0
 GOTEK_CARRIER_Y = 17.0
 GOTEK_CARRIER_W = 120.0
 GOTEK_CARRIER_D = 95.0
+# Right-wall control centres for a bare SFR-series Gotek PCB mounted lengthwise
+# on the carrier.  These are deliberately parameters: the supplied product
+# photo has no scale and Gotek PCB revisions do not share manufacturing CAD.
+GOTEK_USB_Y = 62.0
+GOTEK_BUTTON_Y = (86.0, 98.0)
+GOTEK_FACE_Z = 50.0
 
 # Bramble-style finger joints.  Each edge is divided into an odd number of
 # roughly 16 mm sections so reversing an edge keeps the same phase.  The small
@@ -278,23 +284,27 @@ def right(include_floppy=False):
 
 def right_gotek():
     e = right(False)
-    # Rear-side access aligned with the elevated Gotek carrier above CN11.
-    # It stays well behind the mouse/joystick DE-9 connectors.
-    e.append(rounded_rect(38.0, 50.0, 16.5, 8.5, 1.0))  # USB-A
-    e.append(circle(62.0, 50.0, 6.5))                    # previous
-    e.append(circle(76.0, 50.0, 6.5))                    # next/select
+    # Access aligned with the narrow end of the bare Gotek PCB.  USB and both
+    # on-board pushbuttons remain on the right wall and clear the DE-9 ports.
+    e.append(rounded_rect(GOTEK_USB_Y, GOTEK_FACE_Z,
+                          16.5, 8.5, 1.0))
+    for y in GOTEK_BUTTON_Y:
+        e.append(circle(y, GOTEK_FACE_Z, 6.5))
     return e
 
 
 def gotek_carrier():
-    """Carrier above CN11, sharing motherboard mounting axes H1 and MT6."""
+    """Adjustable carrier for a bare Gotek PCB above motherboard CN11."""
     e = [panel_outline(GOTEK_CARRIER_W, GOTEK_CARRIER_D)]
     # Stack this carrier on longer nylon standoffs above H1 and MT6.  Global
     # coordinates include the motherboard's 6 mm enclosure offset.
     for x, y in ((PCB_X + 311.912, PCB_Y + 22.352),
                  (PCB_X + 274.066, PCB_Y + 96.393)):
         e.append(circle(x - GOTEK_CARRIER_X, y - GOTEK_CARRIER_Y, 3.4))
-    # Adjustable Gotek PCB fixing pattern.  Nylon M3 hardware recommended.
+    # Four adjustable fixing slots fit the long bare PCB shown in the supplied
+    # reference while allowing for revision-to-revision hole-pitch variation.
+    # Install the PCB on four nylon M3 standoffs with its USB/buttons toward
+    # the enclosure's right wall; do not clamp the PCB directly to acrylic.
     for x in (20.0, 100.0):
         for y in (14.0, 81.0):
             e.append(horizontal_slot(x, y, 14.0, 3.4))

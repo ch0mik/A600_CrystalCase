@@ -8,6 +8,12 @@ with active cooling, a bottom-mounted 1 MB Chip RAM expansion and a
 FrameThrower 600. Video is exposed through a full-size HDMI ribbon adapter and
 bracket installed in place of the RF modulator.
 
+> **Disclaimer:** This is an experimental, unverified mechanical design. I
+> accept no responsibility for damage to equipment, data loss, injury, or any
+> other loss resulting from its manufacture, assembly, or use. You build and
+> use it entirely at your own risk. Verify every dimension, clearance, wiring
+> connection, and electrical polarity on your own hardware before power-up.
+
 > **Status: mechanical prototype.** The motherboard outline and connector
 > positions come from KiCad, but no manufacturing drawings are publicly
 > available for the HDMI bracket, Ami64 Gotek assembly or the exact CM4 cooler.
@@ -56,8 +62,10 @@ The command rebuilds both views of the finger-joint enclosure.
 
 ![AI-generated conceptual photorealistic enclosure preview](renders/assembly_realistic.png)
 
-The AI-generated image is illustrative only; use the non-AI SVG/DXF technical
-views for dimensions and manufacturing decisions.
+The AI-generated image is illustrative only. It shows the requested bare Gotek
+PCB on a carrier, with its USB and buttons at the right wall and the 0.96-inch
+OLED/encoder at the front. Use the non-AI SVG/DXF technical views for dimensions
+and manufacturing decisions.
 
 Only geometry confirmed by the DXF/KiCad sources is shown. The PCB `Edge.Cuts`,
 mounting-drill diameters and flat footprint bounds are read directly from the
@@ -91,7 +99,7 @@ The `dxf_screws/` directory contains the screw-fastened variant:
 - `06_front_3mm.dxf` — ventilated front panel with two 3 mm LED openings;
 - `06b_front_gotek_oled_rotary_3mm.dxf` — front panel with the 0.96-inch OLED
   and rotary encoder;
-- `07_gotek_carrier_3mm.dxf` — adjustable universal Gotek PCB carrier.
+- `07_gotek_carrier_3mm.dxf` — adjustable carrier for the bare Gotek PCB.
 
 The files use ASCII AutoCAD R12 DXF, **millimetres**, and **1:1 scale**. Every
 production file contains closed contours on the `CUT` layer only. Tool-radius
@@ -152,11 +160,17 @@ axes, so neither the top nor bottom receives separate carrier holes. The
 panel.
 
 The OLED window is 28 × 15 mm and the encoder-bushing hole is 7.5 mm. The
-`04c` provides a 16.5 × 8.5 mm USB-A opening and two 6.5 mm button holes on
-the rear portion of the right side, away from the DE-9 ports. The 120 × 95 mm carrier has adjustable slots
-for different PCB revisions. Ami64 supplies a 3D-printed internal mount but
-does not publish its manufacturing drawing, so compare the holes with the
-actual part and verify standoff height above motherboard components before CNC.
+`04c` panel provides a 16.5 × 8.5 mm USB-A opening and two 6.5 mm button holes
+on the right wall, between the rear and the DE-9 ports. The 120 × 95 mm carrier
+is a separate laser-cut mounting element for the **bare, enclosure-less Gotek
+PCB** shown in the [supplied product reference](https://www.simulant.uk/shop/image/cache/catalog/Product%20Images/RETRO/amiga/amiga1200-gotek-full-kit-750x750.jpg).
+Install the Gotek component-side up on four nylon M3 standoffs, with USB and
+both buttons toward the right wall. Its four horizontal slots allow X-axis
+adjustment for different PCB revisions; the two carrier-to-motherboard holes
+share the H1 and MT6 axes. The product photo has no dimensional scale and the
+manufacturer does not publish a manufacturing drawing, so measure the actual
+PCB hole pitch, connector centres, overall height, and standoff clearance
+before CNC. Edit the `GOTEK_*` parameters in `generate_dxf.py` if needed.
 
 Vertical panels in the screw-fastened version may be attached using 15 × 15 mm
 angle brackets or 3D-printed corner blocks. Corner holes are Ø3.4 mm clearance
